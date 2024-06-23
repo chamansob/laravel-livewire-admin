@@ -96,7 +96,7 @@ return [
     */
 
     'cipher' => 'AES-256-CBC',
-
+    'Image' => Intervention\Image\Facades\Image::class,
     'key' => env('APP_KEY'),
 
     'previous_keys' => [
