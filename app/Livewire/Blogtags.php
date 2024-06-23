@@ -108,21 +108,23 @@ final class Blogtags extends PowerGridComponent
     public function actions(Blogtag $row): array
     {
         return [
+
             Button::add('edit')
-                ->target('_self')
-                ->slot('Edit')
-                ->class('btn btn-warning')
-                ->route('blogtags.edit', ['blogtag' => $row->id]),
+            ->target('_self')
+            ->slot('Edit')
+            ->class('btn btn-inverse-warning')
+            ->route('blogtag.edit', ['blogtag' => $row->id]),
 
 
             Button::add('delete')
-                ->render(function ($blogtag) {
-                    return Blade::render(<<<HTML
-                      <x-primary-button class="btn btn-danger" wire:click="delete('$blogtag->id')" wire:confirm="Are you sure you want to delete">
-                {{ __('Delete') }}
+            ->render(function ($blogtag) {
+                return Blade::render(<<<HTML
+                      <x-primary-button class="btn btn-inverse-danger" wire:click="delete('$blogtag->id')" wire:confirm="Are you sure you want to delete">
+                 {{ __('Delete') }}
             </x-primary-button>
 HTML);
-                }),
+            }),
+
 
         ];
     }

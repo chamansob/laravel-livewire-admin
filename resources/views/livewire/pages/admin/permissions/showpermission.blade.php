@@ -12,20 +12,20 @@ new #[Layout('layouts.dashboard')] class extends Component {
 
     <div class="page-content">
 
-        <livewire:dashboard.components.breadcrumbs :name="'Create Users'" :button="true" :function="'create'" />
+        <livewire:dashboard.components.breadcrumbs :name="'Create Permission'" :button="true" :function="'create'" />
 
-        <a wire:navigate href="/admin/user/create" class="btn btn-inverse-info my-2">Create User</a>
+        <a wire:navigate href="/admin/permission/create" class="btn btn-inverse-info my-2">Create Permission</a>
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="card-title">Show Blog  </h6>
+                        <h6 class="card-title">Show Permission  </h6>
                          @if (session('message'))
                                     <div class="alert alert-{{ session('alert-type') }}">
                                         {{ session('message') }}
                                     </div>
                                 @endif
-                        <livewire:user-table />
+                        <livewire:permission-table/>
                     </div>
                 </div>
             </div>

@@ -51,17 +51,20 @@ final class UserTable extends PowerGridComponent
     {
         return PowerGrid::fields()
             ->add('id')
+            ->add('photo', fn ($user) => '<img class="w-100" src="' . (($user->photo) ? asset("storage/{$user->photo}") : asset("upload/no_image.jpg")) . '">')
             ->add('name')
             ->add('username')
-            ->add('photo')
-            ->add('role')
-            ->add('created_at');
+            ->add('role', fn ($user) => $user->roles[0]->name)
+            ->add('created_at_formatted',fn ($user) => '<span class="">C:</span>'.Carbon::parse($user->created_at)->format('d-m-Y h:i:s A') . '<br>' . '<span class="">U:</span>' . Carbon::parse($user->updated_at)->format('d-m-Y h:i:s A'));
     }
 
     public function columns(): array
     {
         return [
             Column::make('Id', 'id'),
+            Column::make('Photo', 'photo')
+            ->sortable()
+                ->searchable(),
             Column::make('Name', 'name')
                 ->sortable()
                 ->searchable(),
@@ -70,18 +73,17 @@ final class UserTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-
-
-            Column::make('Photo', 'photo')
-                ->sortable()
-                ->searchable(),
-
             Column::make('Role', 'role')
+            ->contentClasses([
+                'SuperAdmin'    => 'badge badge-pill bg-danger',
+                'Manager' => 'badge badge-pill bg-warning',
+                'User' => 'badge badge-pill bg-info',
+            ])
                 ->sortable()
                 ->searchable(),
 
 
-            Column::make('Created at', 'created_at')
+            Column::make('Created at', 'created_at_formatted')
                 ->sortable()
                 ->searchable(),
 
@@ -110,7 +112,7 @@ final class UserTable extends PowerGridComponent
         }else
         {
             $user = User::find($user);
-            //$user->delete();
+            $user->delete();
 
 
             session()->flash('message', 'User deleted successfully.');
@@ -128,15 +130,15 @@ final class UserTable extends PowerGridComponent
             Button::add('edit')
             ->target('_self')
             ->slot('Edit')
-            ->class('btn btn-warning')
+            ->class('btn btn-inverse-warning')
             ->route('user.edit', ['user' => $row->id]),
 
 
             Button::add('delete')
             ->render(function ($user) {
                 return Blade::render(<<<HTML
-                      <x-primary-button class="btn btn-danger" wire:click="delete('$user->id')" wire:confirm="Are you sure you want to delete">
-                {{ __('Delete') }}
+                      <x-primary-button class="btn btn-inverse-danger" wire:click="delete('$user->id')" wire:confirm="Are you sure you want to delete">
+                  {{ __('Delete') }}
             </x-primary-button>
 HTML);
             }),

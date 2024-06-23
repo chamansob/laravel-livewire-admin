@@ -12,15 +12,15 @@ new #[Layout('layouts.dashboard')] class extends Component {
 
     <div class="page-content">
 
-        <livewire:dashboard.components.breadcrumbs :name="'Create Blog Category'" :button="true" :function="'create'" />
+        <livewire:dashboard.components.breadcrumbs :name="'Create User'" :button="true" :function="'create'" />
 
-        <a wire:navigate href="/admin/blogcategory" class="btn btn-inverse-info my-2">Show Blog Category</a>
+        <a wire:navigate href="/admin/users" class="btn btn-inverse-info my-2">Show Users</a>
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="card-title">Create Blog </h6>
-                        <livewire:pages.admin.blogs.components.blogform />
+                        <h6 class="card-title">Create User </h6>
+                        <livewire:pages.admin.users.components.userform />
                     </div>
                 </div>
             </div>

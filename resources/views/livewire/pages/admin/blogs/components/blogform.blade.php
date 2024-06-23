@@ -20,10 +20,10 @@
 
                 </div>
             </div>
-
-            <div class="mt-3 col-sm-2"><img src="{{ asset('storage/' . $post_image_main) }}"
-                    class="img-thumbnail img-fluid img-responsive w-10"></div>
-
+            @if ($post_image_main)
+                <div class="mt-3 col-sm-2"><img src="{{ asset('storage/' . $post_image_main) }}"
+                        class="img-thumbnail img-fluid img-responsive w-10"></div>
+            @endif
         </div>
         <div class="row">
             <div class="col-sm-12">
@@ -33,11 +33,6 @@
                     <x-select id="blogcat" :options="$blogcat" :optionget="'category_name'" wire:model.live="blogcat_id"
                         class="{{ $errors->get('blogcat') ? 'is-invalid' : '' }}" name="blogcat"
                         placeholder="Select Blog Category" />
-                    {{-- <select wire:model.live="blogcat_id" class="form-control">
-                        @foreach ($blogcat as $blogc)
-                            <option value="{{ $blogc->id }}">{{ $blogc->category_name }}</option>
-                        @endforeach
-                    </select> --}}
                     <x-input-error :messages="$errors->get('blogcat')" />
                 </div>
             </div><!-- Col -->
@@ -84,8 +79,7 @@
                 <div class="mb-3">
                     <x-input-label for="post_tags" :value="__('Blog Tags')" />
                     <x-select id="blogtags" :options="$blogtags" :optionget="'tag_name'" wire:model.live="post_tags_ids"
-                        class="taggings" multiple="true" type="text" name="blogtags"
-                        placeholder="Blog Tags" />
+                        class="taggings" multiple="true" type="text" name="blogtags" placeholder="Blog Tags" />
                     {{-- @json($post_tags_ids); --}}
                 </div>
             </div><!-- Col -->
@@ -99,4 +93,3 @@
     </form>
 
 </div>
-

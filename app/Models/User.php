@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 class User extends Authenticatable
 {
     use  HasFactory, Notifiable, HasRoles;
-
+    public $guard_name = 'admin';
     /**
      * The attributes that are mass assignable.
      *
@@ -51,13 +51,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    protected function name(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value) => ucfirst($value),
-            set: fn (string $value) => strtolower($value),
-        );
-    }
+    // protected function name(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn (string $value) => ucfirst($value),
+    //         set: fn (string $value) => strtolower($value),
+    //     );
+    // }
     public static function getpermissionGroups()
     {
         $permission_groups = DB::table('permissions')->select('group_name')->groupBy('group_name')->get();

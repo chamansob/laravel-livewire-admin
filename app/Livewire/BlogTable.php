@@ -25,7 +25,7 @@ use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 final class BlogTable extends PowerGridComponent
 {
     use WithExport;
-    public bool $deferLoading = true;
+    public bool $deferLoading = false;
 
     public string $loadingComponent = 'components.mycustomloading';
     public int $blogcat_id = 0;
@@ -88,7 +88,7 @@ final class BlogTable extends PowerGridComponent
         return PowerGrid::fields()
             ->add('id')
             ->add('category_name', fn ($blog) => e($blog->category->category_name))
-            ->add('post_image', fn ($blog) => '<img class="w-100" src="' . (($blog->post_image) ? asset("storage/{$blog->post_image}") : asset("upload/no_image.jpg")) . '">')
+            ->add('post_image', fn ($blog) => '<img class="wd-80 ht-80 rounded-circle" src="' . (($blog->post_image) ? asset("storage/{$blog->post_image}") : asset("upload/no_image.jpg")) . '">')
 
             ->add('post_title', fn ($blog) => Str::substr($blog->post_title,0,10)."...")
             ->add('status')
@@ -180,20 +180,25 @@ final class BlogTable extends PowerGridComponent
     public function actions(Blog $row): array
     {
         return [
+
             Button::add('edit')
-                ->target('_self')
-                ->slot('Edit')
-                ->class('btn btn-warning')
-                ->route('blog.edit', ['blog' => $row->id]),
+            ->target('_self')
+            ->slot('Edit')
+            ->class('btn btn-inverse-warning')
+            ->route('blog.edit', ['blog' => $row->id]),
+
 
             Button::add('delete')
-                ->render(function ($blog) {
-                    return Blade::render(<<<HTML
-                      <x-primary-button class="btn btn-danger" wire:click="delete('$blog->id')" wire:confirm="Are you sure you want to delete">
-                {{ __('Delete') }}
+            ->render(function ($blog) {
+                return Blade::render(<<<HTML
+                      <x-primary-button class="btn btn-inverse-danger" wire:click="delete('$blog->id')" wire:confirm="Are you sure you want to delete">
+
+                  {{ __('Delete') }}
             </x-primary-button>
 HTML);
-                }),
+            }),
+
+
         ];
     }
 

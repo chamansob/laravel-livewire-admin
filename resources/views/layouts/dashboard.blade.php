@@ -79,7 +79,7 @@
     </div>
  @livewireScripts
     <!-- core:js -->
-    <script src="{{ asset('backend/assets/vendors/core/core.js') }}"></script>
+    <script data-navigate-once src="{{ asset('backend/assets/vendors/core/core.js') }}"></script>
     <!-- endinject -->
 
     <!-- Plugin js for this page -->

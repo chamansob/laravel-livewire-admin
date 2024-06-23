@@ -15,69 +15,16 @@ const LOADER = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" v
                                         <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
                                         <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
                                     </svg>';
-const LOCATION = [
-    1 => 'Africa',
-    2 => 'Asia',
-    3 => 'Asia Pacific',
-    4 => 'Caribbean',
-    5 => 'Central America',
-    6 => 'Europe',
-    7 => 'Middle East/ North Africa',
-    8 => 'North America',
-    9 => 'Other',
-    10 => 'South America',
+const PERMISSION = [
+    'smtp' => 'SMTP Setting',
+    'site' => 'Site Setting',
+    'role'=> 'Role & Permission',
+    'users' => 'Users',
+    'blog' => 'Blog',
+    'blog_cat' => 'Blog Category',
+    'blog_tag' => 'Blog Tag'
 ];
-const CATEGORY = [
-    1 => 'Category',
-    2 => 'Service'
-];
-const GENDER = [
-    1 => 'Male',
-    2 => 'Female'
-];
-const STYLES = [
-    'main',
-    'alabama',
-    'imperial-blue',
-    'university',
-    'cerulean',
-    'bronze',
-    'viridian-green',
-    'amaranth',
-    'yellow',
-    'coquelicot',
-    'viridian-green',
-    'dark-cyan',
-    'azure',
-    'blue-green',
-    'crimson',
-    'cerulean',
-    'blueberry',
-    'burnt-orange',
-    'lilac',
-    'amber',
-    'cg-blue',
-    'ball-blue',
-    'american-rose',
-    'alizarin',
-    'dark-pink',
-    'lime-green',
-    'cyan-cornflower',
-    'blue-munsell',
-    'violet',
-    'orange-pantone',
-    'magenta-violet',
-    'forest-green',
-    'debian-red',
-    'go-green',
-    'rich-carmine',
-    'university',
-    'charcoal',
-    'cadmium',
-    'fuchsia',
-    'green-pantone',
-    'amaranth',
-];
+
 function active_class($path)
 {
     return (Route::getCurrentRoute()->uri == $path) ? 'active' : '';

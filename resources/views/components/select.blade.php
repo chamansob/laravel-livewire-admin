@@ -1,4 +1,5 @@
 @props(['id', 'name', 'options', 'optionget', 'placeholder' => null, 'class' => ''])
+@if($optionget!=0)
 <div wire:ignore>
     <select id="{{ $id }}" name="{{ $name }}"
         {{ $attributes->merge(['class' => 'form-control ' . $class]) }}>
@@ -10,6 +11,19 @@
         @endforeach
     </select>
 </div>
+@else
+<div wire:ignore>
+    <select id="{{ $id }}" name="{{ $name }}"
+        {{ $attributes->merge(['class' => 'form-control ' . $class]) }}>
+        @if ($placeholder)
+            <option value="">{{ $placeholder }}</option>
+        @endif
+        @foreach ($options as $value => $label)
+            <option value="{{ $value }}">{{ $label }}</option>
+        @endforeach
+    </select>
+</div>
+@endif
 @section('script')
     <script>
         $(document).ready(function() {

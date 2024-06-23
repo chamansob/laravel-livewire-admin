@@ -217,46 +217,34 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <?php
-                    $small_img = '';
-                    if (Auth::user()->photo) {
-                        $img = explode('.', Auth::user()->photo);
-                        $small_img = $img[0] . '_avatar.' . $img[1];
-                    }
-                    ?>
+
                     <img class="wd-30 ht-30 rounded-circle"
-                        src="{{ file_exists($small_img) ? asset($small_img) : url('upload/no_image.jpg') }}"
+                        src="{{ !empty(Auth::user()->photo) ? asset('storage/'.Auth::user()->photo) : asset("upload/no_image.jpg") }}"
                         alt="profile">
                 </a>
                 <div class="dropdown-menu p-0" aria-labelledby="profileDropdown">
                     <div class="d-flex flex-column align-items-center border-bottom px-5 py-3">
                         <div class="mb-3">
                             <img class="wd-80 ht-80 rounded-circle"
-                                src="{{ !empty(Auth::user()->photo) ? asset(Auth::user()->photo) : url('upload/no_image.jpg') }}"
+                                src="{{ !empty(Auth::user()->photo) ? asset('storage/'.Auth::user()->photo) : asset("upload/no_image.jpg") }}"
                                 alt="">
                         </div>
                         <div class="text-center">
                             <p class="tx-16 fw-bolder">{{ Auth::user()->name }}</p>
                             <p class="tx-12 text-muted">{{ Auth::user()->email }}</p>
-                            <p class="tx-13 text-white fw-bolder">{{ucfirst(Auth::user()->role)}}</p>
+                            <p class="tx-13 text-white fw-bolder">{{ucfirst(Auth::user()->roles[0]->name)}}</p>
                         </div>
                     </div>
                     <ul class="list-unstyled p-1">
                         <li class="dropdown-item py-2">
-                            <a href="#"
+                            <a wire:navigate href="/admin/user/edit/{{ Auth::user()->id }}"
                                 class="text-body ms-0">
                                 <i class="me-2 icon-md" data-feather="user"></i>
                                 <span>Profile</span>
                             </a>
                         </li>
-                        <li class="dropdown-item py-2">
-                            <a href="#"
-                                class="text-body ms-0">
-                                <i class="me-2 icon-md" data-feather="edit"></i>
-                                <span>Change Password</span>
-                            </a>
-                        </li>
-                        @if(Auth::user()->role == 'superadmin' || Auth::user()->role == 'admin')
+
+                        @if(Auth::user()->roles[0]->name == 'superadmin')
                         <li class="dropdown-item py-2">
                             <a href="#" class="text-body ms-0">
                                 <i class="me-2 icon-md" data-feather="repeat"></i>

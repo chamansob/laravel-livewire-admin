@@ -1,5 +1,4 @@
-<div>
-    <form wire:submit.prevent="save">
+<form wire:submit.prevent="save">
         <div class="row">
             <div class="col-sm-12">
                 <div class="mb-3">
@@ -19,5 +18,3 @@
             </x-primary-button>
         </div>
     </form>
-
-</div>
